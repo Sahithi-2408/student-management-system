@@ -63,3 +63,15 @@ input {
   margin-top: 5px;
   box-sizing: border-box;
 }
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-right: 8px;
+  width: 18px;
+  height: 18px;
+}
