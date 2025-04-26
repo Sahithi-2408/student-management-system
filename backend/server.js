@@ -6,7 +6,9 @@ const cors = require('cors');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://student-management-system-frontend-uq4e.onrender.com',  // Allow frontend URL
+}));
 app.use(express.json());
 
 // MongoDB Connection
