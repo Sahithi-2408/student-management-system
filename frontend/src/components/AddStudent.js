@@ -10,13 +10,19 @@ function AddStudent() {
     email: '',
     dob: '',
     department: '',
-    enrollmentYear: ''
+    enrollmentYear: '',
+    isActive: true, // default active
   });
 
   const navigate = useNavigate();
 
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,18 +33,36 @@ function AddStudent() {
   return (
     <form onSubmit={handleSubmit} style={{ padding: '2rem' }}>
       <h2>Add Student</h2>
-      {Object.entries(formData).map(([key, value]) => (
-        <div key={key} style={{ marginBottom: '10px' }}>
-          <label>{key}</label><br />
-          <input
-            type={key === 'dob' ? 'date' : 'text'}
-            name={key}
-            value={value}
-            onChange={handleChange}
-            required
-          />
-        </div>
-      ))}
+      {Object.entries(formData).map(([key, value]) => {
+        if (key === 'isActive') {
+          return (
+            <div key={key} className="checkbox-group">
+              <input
+                type="checkbox"
+                name={key}
+                checked={value}
+                onChange={handleChange}
+                id={key}
+              />
+              <label htmlFor={key}>Active</label>
+            </div>
+          );
+        }
+
+        return (
+          <div key={key} style={{ marginBottom: '10px' }}>
+            <label htmlFor={key}>{key}</label><br />
+            <input
+              type={key === 'dob' ? 'date' : 'text'}
+              name={key}
+              value={value}
+              onChange={handleChange}
+              id={key}
+              required
+            />
+          </div>
+        );
+      })}
       <button type="submit">Add</button>
     </form>
   );
